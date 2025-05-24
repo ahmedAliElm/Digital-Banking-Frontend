@@ -18,14 +18,11 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
       
-    this.http.get("http://localhost:8085/customers").subscribe(data => {
+    this.http.get("http://localhost:8085/customers").subscribe({
 
-      this.customers = data;
-
-    }, error => {
-
-      console.log(error);
-    });
+      next: (data) => { this.customers = data; },
+      error: (err) => { console.log(err); }
+    })
   }
 }
 
