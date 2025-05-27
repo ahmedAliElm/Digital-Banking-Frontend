@@ -2,6 +2,10 @@
 
     <div class="card" *ngIf = "customers">
 
+        <div *ngIf = "errorMessage">
+            {{errorMessage}}
+        </div>
+
         <div class="card-header"> Customers </div>
 
         <div class="card-body">
