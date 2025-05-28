@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../services/customer.service';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Customer } from '../models/customers.model';
 
 @Component({
   standalone: true,
@@ -12,25 +14,21 @@ import { CustomerService } from '../services/customer.service';
 
 export class CustomersComponent implements OnInit {
 
-  customers: any;
-  errorMessage: string | undefined;
+  customers!: Observable<Array<Customer>>;
+  errorMessage!: string;
 
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
       
-    this.customerService.getCustomers().subscribe({
+    this.customers = this.customerService.getCustomers().pipe(
+      
+      catchError(err => {
 
-      next: (data) => {
-
-        this .customers = data;
-      },
-
-      error: (err) => {
-
-        this.errorMessage = err;
-      }
-    })
+        this.errorMessage = err.message;
+        return throwError(err);
+      })
+    );
   }
 }
 
