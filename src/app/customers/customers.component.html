@@ -1,8 +1,8 @@
 <div class="container mt-2">
 
-    <ng-container *ngIf="customers | async as listCustomers; else failure">
+    <ng-container *ngIf="customers | async as listCustomers; else failureOrLoading">
         
-        <div class="card" *ngIf = "customers">
+        <div class="card">
 
             <div class="card-header"> Customers </div>
 
@@ -34,8 +34,19 @@
         </div>
     </ng-container>
 
-    <ng-template #failure class="text-danger">
-        {{errorMessage}}
+    <ng-template #failureOrLoading>
+
+        <ng-container *ngIf="errorMessage; else loading">
+
+            <div class="text-danger">
+                {{errorMessage}}
+            </div>
+        </ng-container>
+
+        <ng-template #loading>
+            Loading...
+        </ng-template>
+        
     </ng-template>
 
 </div>
