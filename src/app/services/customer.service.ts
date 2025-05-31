@@ -30,5 +30,11 @@ export class CustomerService {
 
     return this.http.post<Customer>(this.backendHost + "/customers", customer);
   }
+  
+  
+  public deleteCustomer(id: number) {
+
+    return this.http.delete(this.backendHost + "/customers/" + id);
+  }
 }
 
