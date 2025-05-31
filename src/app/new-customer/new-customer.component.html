@@ -20,17 +20,21 @@
                 </div>
                 
                 <div class="mb-3">
+                    
+                    <label class="form-label">Email:</label>
+                    <input type="email" formControlName="email" class="form-control" />
 
-                    <label class="form-label"> Email : </label>
-                    <input type="email" formControlName="name" class="form-control">
+                    <span class="text-danger" *ngIf="newCustomerFormGroup.get('email')?.touched && newCustomerFormGroup.get('email')?.hasError('required')">
+                        Email is required
+                    </span>
 
-                    <span *ngIf="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors && newCustomerFormGroup.controls['email'].errors!['email']">
-
+                    <span class="text-danger" *ngIf="newCustomerFormGroup.get('email')?.touched && newCustomerFormGroup.get('email')?.hasError('email')">
                         Email is not valid
                     </span>
                 </div>
 
-                <button [disabled]="newCustomerFormGroup.valid" class="btn btn-info"> Save </button>
+
+                <button [disabled]="newCustomerFormGroup.invalid" class="btn btn-info"> Save </button>
             </form>
         </div>
     </div>
